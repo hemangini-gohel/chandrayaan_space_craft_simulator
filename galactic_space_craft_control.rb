@@ -2,7 +2,7 @@
 
 module Chandrayaan3
   class GalacticSpaceCraftControl
-    attr_accessor :x, :y, :z, :direction, :instructions
+    attr_accessor :x, :y, :z, :direction, :instructions, :hash
 
     def initialize(x, y, z, initial_direction, instructions)
       return unless valid_inputs?(initial_direction, instructions)
@@ -10,6 +10,19 @@ module Chandrayaan3
       @instructions = instructions
       set_position(x, y, z)
       set_direction(initial_direction.downcase)
+      set_movement_hash
+    end
+
+    # Define the movement hash for each direction
+    def set_movement_hash
+      @hash = {
+        n: { turn_left: 'w', turn_right: 'e', move_forward: { x: 0, y: 1, z: 0 } },
+        s: { turn_left: 'e', turn_right: 'w', move_forward: { x: 0, y: -1, z: 0 } },
+        e: { turn_left: 'n', turn_right: 's', move_forward: { x: 1, y: 0, z: 0 } },
+        w: { turn_left: 's', turn_right: 'n', move_forward: { x: -1, y: 0, z: 0 } },
+        u: { turn_left: 'n', turn_right: 's', move_forward: { x: 0, y: 0, z: 1 } },
+        d: { turn_left: 's', turn_right: 'n', move_forward: { x: 0, y: 0, z: -1 } }
+      }
     end
 
     # Set the direction

@@ -28,6 +28,21 @@ RSpec.describe Chandrayaan3::GalacticSpaceCraftControl do
     end
   end
 
+  describe '#set_movement_hash' do
+    it 'sets the movement hash' do
+      spacecraft = described_class.new(0, 0, 0, 'n', [])
+      spacecraft.set_movement_hash
+      expect(spacecraft.instance_variable_get(:@hash)).to eq({
+        n: { turn_left: 'w', turn_right: 'e', move_forward: { x: 0, y: 1, z: 0 } },
+        s: { turn_left: 'e', turn_right: 'w', move_forward: { x: 0, y: -1, z: 0 } },
+        e: { turn_left: 'n', turn_right: 's', move_forward: { x: 1, y: 0, z: 0 } },
+        w: { turn_left: 's', turn_right: 'n', move_forward: { x: -1, y: 0, z: 0 } },
+        u: { turn_left: 'n', turn_right: 's', move_forward: { x: 0, y: 0, z: 1 } },
+        d: { turn_left: 's', turn_right: 'n', move_forward: { x: 0, y: 0, z: -1 } }
+      })
+    end
+  end
+
   describe '#set_direction' do
     it 'updates the direction' do
       spacecraft = described_class.new(0, 0, 0, 'n', [])
