@@ -6,11 +6,11 @@ RSpec.describe Chandrayaan3::GalacticSpaceCraftControl do
 
   describe '#initialize' do
     context 'with valid initial direction and instructions' do
-      it 'initializes the spacecraft correctly' do
+      it 'initializes the spacecraft correctly and apply commands' do
         spacecraft = described_class.new(0, 0, 0, 'n', %w[f r u b l])
         expect(spacecraft.x).to eq(0)
-        expect(spacecraft.y).to eq(0)
-        expect(spacecraft.z).to eq(0)
+        expect(spacecraft.y).to eq(1)
+        expect(spacecraft.z).to eq(-1)
         expect(spacecraft.direction).to eq('n')
       end
     end
@@ -25,6 +25,16 @@ RSpec.describe Chandrayaan3::GalacticSpaceCraftControl do
       it 'does not initialize the spacecraft' do
         expect { described_class.new(0, 0, 0, 'n', %w[f r u b x]) }.to output("Invalid Commands\n").to_stdout
       end
+    end
+  end
+
+  describe '#execute_commands' do
+    it 'executes the commands correctly' do
+      spacecraft = described_class.new(0, 0, 0, 'n', %w[f r u b l])
+      expect(spacecraft.x).to eq(0)
+      expect(spacecraft.y).to eq(1)
+      expect(spacecraft.z).to eq(-1)
+      expect(spacecraft.direction).to eq('n')
     end
   end
 

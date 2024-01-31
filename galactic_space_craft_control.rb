@@ -11,6 +11,23 @@ module Chandrayaan3
       set_position(x, y, z)
       set_direction(initial_direction.downcase)
       set_movement_hash
+      execute_commands
+    end
+
+    # Iterate through each instruction and execute corresponding action
+    def execute_commands
+      @instructions.each do |element|
+        case element
+        when 'f', 'b'
+          move(element) # Move forward or backward
+        when 'l', 'r'
+          turn(element) # Turn left or right
+        when 'u', 'd'
+          set_direction(element) # Turn up or down
+        end
+      end
+      puts "Final Position:(#{@x}, #{@y},#{@z})"
+      puts "Final Direction: #{@direction.upcase}"
     end
 
     # Determine the movement based on the current direction and update position
