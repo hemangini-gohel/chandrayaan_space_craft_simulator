@@ -28,6 +28,46 @@ RSpec.describe Chandrayaan3::GalacticSpaceCraftControl do
     end
   end
 
+  describe '#move' do
+    context 'when moving forward' do
+      it 'updates the position correctly' do
+        spacecraft = described_class.new(0, 0, 0, 'n', [])
+        spacecraft.move('f')
+        expect(spacecraft.x).to eq(0)
+        expect(spacecraft.y).to eq(1)
+        expect(spacecraft.z).to eq(0)
+      end
+    end
+
+    context 'when moving backward' do
+      it 'updates the position correctly' do
+        spacecraft = described_class.new(0, 0, 0, 'n', [])
+        spacecraft.move('b')
+        expect(spacecraft.x).to eq(0)
+        expect(spacecraft.y).to eq(-1)
+        expect(spacecraft.z).to eq(0)
+      end
+    end
+  end
+
+  describe '#turn' do
+    context 'when turning left' do
+      it 'updates the direction correctly' do
+        spacecraft = described_class.new(0, 0, 0, 'n', [])
+        spacecraft.turn('l')
+        expect(spacecraft.direction).to eq('w')
+      end
+    end
+
+    context 'when turning right' do
+      it 'updates the direction correctly' do
+        spacecraft = described_class.new(0, 0, 0, 'n', [])
+        spacecraft.turn('r')
+        expect(spacecraft.direction).to eq('e')
+      end
+    end
+  end
+
   describe '#set_movement_hash' do
     it 'sets the movement hash' do
       spacecraft = described_class.new(0, 0, 0, 'n', [])
@@ -56,6 +96,7 @@ RSpec.describe Chandrayaan3::GalacticSpaceCraftControl do
       expect { spacecraft.set_position(1, 2, 3) }.to change { [spacecraft.x, spacecraft.y, spacecraft.z] }.from([0, 0, 0]).to([1, 2, 3])
     end
   end
+
   describe '#valid_inputs?' do
     context 'with valid inputs' do
       it 'returns true' do

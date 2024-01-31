@@ -13,6 +13,19 @@ module Chandrayaan3
       set_movement_hash
     end
 
+    # Determine the movement based on the current direction and update position
+    def move(type)
+      coordinates = @hash[@direction.to_sym][:move_forward]
+      movement = type == 'f' ? coordinates : coordinates.transform_values { |value| -value }
+      set_position(@x + movement[:x], @y + movement[:y], @z + movement[:z])
+    end
+
+    # Determine the new direction based on the turn instruction
+    def turn(element)
+      direction = element == 'l' ? @hash[@direction.to_sym][:turn_left] : @hash[@direction.to_sym][:turn_right]
+      set_direction(direction)
+    end
+
     # Define the movement hash for each direction
     def set_movement_hash
       @hash = {
