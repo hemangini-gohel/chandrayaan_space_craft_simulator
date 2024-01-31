@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../galactic_space_craft_control'
+require_relative '../lib/galactic_space_craft_control'
 
 RSpec.describe Chandrayaan3::GalacticSpaceCraftControl do
 

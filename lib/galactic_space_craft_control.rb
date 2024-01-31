@@ -85,5 +85,3 @@ module Chandrayaan3
     end
   end
 end
-
-# Chandrayaan3::GalacticSpaceCraftControl.new(0, 0, 0, 'n', %w[f r u b l])
